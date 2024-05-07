@@ -1,5 +1,11 @@
+CREATE DATABASE myProject1;
 USE myProject1;
 
+CREATE TABLE item (
+    itemId INT AUTO_INCREMENT PRIMARY KEY ,
+    itemName VARCHAR(30) NOT NULL ,
+    itemPrice INT NOT NULL
+);
 
 
 DESC member;
@@ -9,10 +15,11 @@ ALTER TABLE member MODIFY COLUMN dbId INT PRIMARY KEY  AUTO_INCREMENT;
 
 
 SELECT * FROM member;
+SELECT * FROM item;
 
 DELETE FROM member WHERE dbId = '';
 
-
+DROP TABLE board;
 CREATE TABLE board (
                        board_id INT AUTO_INCREMENT PRIMARY KEY ,
                        title VARCHAR(30) NOT NULL ,
@@ -37,3 +44,6 @@ UPDATE board SET
     title = '타이틀변경!',
         content ='aaaaaaaaa'
 WHERE board_Id = 1;
+
+SELECT * FROM member;
+
