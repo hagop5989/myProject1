@@ -9,39 +9,34 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="/" class="nav-link">
-                        목록
-                    </a>
-                </li>
                     <li class="nav-item">
-                        <a href="/add" class="nav-link">
+                        <a href="/board/boards" class="nav-link">
                             글쓰기
                         </a>
                     </li>
-                        <li class="nav-item">
-                            <a href="/member/list" class="nav-link">
-                                회원목록
-                            </a>
-                        </li>
+
 
                     <li class="nav-item">
-                        <a href="/member?id=2" class="nav-link">내정보</a>
+                        <a href="/order/orders" class="nav-link">
+                            Order</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="/member/signup" class="nav-link">
-                            회원가입
+                        <a href="/member/members" class="nav-link">
+                            member
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="/member/login" class="nav-link">로그인</a>
+                        <a href="/item/items" class="nav-link">
+                            item
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="/logout" class="nav-link">로그아웃</a>
+                        <a href="/login/logout" class="nav-link" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a>
                     </li>
             </ul>
         </div>

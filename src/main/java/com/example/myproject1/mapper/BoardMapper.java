@@ -45,4 +45,11 @@ public interface BoardMapper {
             SELECT COUNT(board_Id) FROM board;
             """)
     int count();
+
+    @Select("""
+            SELECT * FROM board
+            WHERE board_Id
+            LIMIT #{offset},10
+            """)
+    List<Board>pagingSelect(int offset);
 }

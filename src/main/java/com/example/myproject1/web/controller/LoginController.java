@@ -6,6 +6,7 @@ import com.example.myproject1.web.login.session.SessionConst;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,6 @@ public class LoginController {
     public String login(String userId, String password,
                         HttpServletRequest request, RedirectAttributes rttr){
         Member findedMember = mapper.loginCheckDb(userId, password);
-        System.out.println("findedMember = " + findedMember);
 
         if(findedMember.getUserId().equals(userId) &&
                 findedMember.getPassword().equals(password)){
@@ -44,17 +44,32 @@ public class LoginController {
         return "redirect:/login/getCookie";
         }
 
-        System.out.println("로그인 정보 불일치");
+        log.info("시스템정보 불일치 id={},pw={}", userId, password);
         return null;
     }
 
     @GetMapping("/login/getCookie")
     public String createCookie(Member member, HttpServletResponse response) {
-        System.out.println("createCookie Part member = " + member);
+//        System.out.println("createCookie Part member = " + member);
         Cookie idCookie = new Cookie("memberId", member.getUserId());
-        System.out.println("idCookie = " + idCookie);
+//        System.out.println("idCookie = " + idCookie);
         response.addCookie(idCookie);
         return "login/loginHome";
+    }
+
+    @GetMapping("/login/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        session.removeAttribute(SessionConst.LOGIN_MEMBER);
+        session.invalidate();
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if(cookie != null && cookie.getName().equals(SessionConst.LOGIN_MEMBER)){
+                cookie.setMaxAge(0);
+            }
+            response.addCookie(cookie);
+        }
+        return "redirect:/";
     }
 
     }

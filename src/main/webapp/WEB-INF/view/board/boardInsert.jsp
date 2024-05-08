@@ -57,9 +57,11 @@
     <div>
         <form:textarea path="content" cols="80" rows="10" value="${board.content}"/>
     </div>
-    <input type="submit" value="저장"/>
-    </form:form>
-    <div><a href="/board/boards">이전</a></div>
+    <div class="insertWrap1" style="display: flex">
+        <div><input type="submit" value="저장"/></div>
+        </form:form>
+        <div><button><a href="/board/boards">이전</a></button></div>
+    </div>
 </div>
 
 

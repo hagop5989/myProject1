@@ -51,14 +51,17 @@ public class ItemController {
     }
 
     @PostMapping("/update")
-    public String itemUpdate(@Validated @ModelAttribute("item") Item item,BindingResult bindingResult,Model model, String prevName, RedirectAttributes rttr) {
+    public String itemUpdate(@Validated @ModelAttribute("item") Item item,BindingResult bindingResult,Model model,
+                             String prevName, RedirectAttributes rttr) {
+//        System.out.println("update-prevName = " + prevName);
         if (bindingResult.hasErrors()) {
             log.info(bindingResult.getAllErrors().toString());
             rttr.addFlashAttribute(bindingResult);
-            return "/item/items";
+            return "item/items";
         }
-        model.addAttribute("item", item);
         mapper.update(item,prevName);
+        model.addAttribute("item", item);
+//        System.out.println("수정된 item = " + item);
         rttr.addFlashAttribute("message",  item.getItemName()+ " 수정됨!");
         return "redirect:/item/items";
     }

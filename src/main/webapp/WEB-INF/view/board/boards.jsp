@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -10,10 +11,7 @@
 </head>
 
 <style>
-    a:hover {
-        background: black;
-        color: white;
-    }
+
     a{
         display: block;
         text-decoration: none;
@@ -21,7 +19,7 @@
     }
 
     td,tr {
-        width: 150px;
+        width: 180px;
         border: 1px solid black;
         text-align: center;
         padding: 5px;
@@ -33,14 +31,25 @@
     .wrap1 {
         display: flex;
         justify-content: center;
-
+    }
+    .pageNumbers {
+        display: flex;
+        justify-content: center;
+    }
+    tr:hover {
+        background: black;
+        color: white;
+    }
+    a:hover {
+        color: white;
     }
 </style>
 <body>
 <c:import url="../../fragment/navbar.jsp"/>
+
+<div style="text-align: center; margin: 20px;">
 <button><a href="/board/insert">글쓰기</a></button>
-<form:form action="/board/create" method="get">
-</form:form>
+</div>
 <div class="wrap1">
     <table>
         <thead style="font-weight: bold; background-color:lightslategrey;">
@@ -73,15 +82,13 @@
 </div>
 
 <div class="pageNumbers">
-    <form action="/page/sub1">
+    <form action="/board/boards">
         <c:if test="${nowPage != 1}">
             <button type="submit" name="page" value="1">first</button>
             <button type="submit" name="page" value="${prvPg}"> <<</button>
         </c:if>
-        <c:forEach var="i" begin="${firstPg}" end="${lastPg}">
-            <button class="${i eq nowPage ? 'active' : ''}"
-                    type="submit" name="page"
-                    value="${i}">${i}</button>
+        <c:forEach var="i" begin="${firstPg}" end="${lastPg * 10>sizeNum ? sizeNum/10  : lastPg}">
+            <button type="submit" name="page" value="${i}">${i}</button>
         </c:forEach>
         <c:if test="${nowPage != sizeNum}">
             <button type="submit" name="page" value="${nxtPg}"> >></button>

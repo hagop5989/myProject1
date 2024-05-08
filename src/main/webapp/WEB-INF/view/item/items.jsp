@@ -5,6 +5,9 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+          integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <style>
     table, tr, th, td {
@@ -26,8 +29,9 @@
     }
 
 </style>
-<h1>아이템</h1>
 <body>
+<c:import url="../../fragment/navbar.jsp"/>
+<h1>Item</h1>
 <b>
     <div style="background: skyblue">메세지 : ${message}</div>
     <div style="background: lightcoral">오류 : ${range.item.price}</div>
@@ -45,10 +49,6 @@
 
     <%--입력 혹은 수정--%>
     <form:form action="${selected == null ? '/item/insert':'/item/update'}" method="post" modelAttribute="item">
-<%--        <div><span>itemId:</span>--%>
-<%--            <form:input path=" " type="number" value="${selected != null ? selected.itemId:1}" readonly="true"/>--%>
-<%--        </div>--%>
-
         <div><span>itemName:</span>
             <form:input path="itemName" type="text" value="${selected != null ? selected.itemName: '기본값'}"/>
             <form:errors path="itemName"/>
@@ -60,7 +60,7 @@
         </div>
 
         <c:if test="${selected == null}"> <input type="submit" value="입력"></c:if>
-        <form:input path="itemId" type="hidden" name="prevName" value="${selected.itemId}"/>
+        <input type="hidden" name="prevName" value="${selected.itemId}"/>
     <form:button>수정</form:button>
     </form:form>
 
@@ -98,4 +98,7 @@
 
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
+        integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </html>

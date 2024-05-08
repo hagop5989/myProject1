@@ -3,6 +3,7 @@ package com.example.myproject1.domain.board;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class Board {
@@ -11,7 +12,7 @@ public class Board {
     private String title;
     private String content;
     private String writer;
-    private LocalDate inserted;
+    private LocalDateTime inserted;
 
 
 }

@@ -11,6 +11,9 @@ public class Order {
     @NotBlank(message = "orderItem : 빈칸일 수 없습니다!")
     private String orderItem;
 
+    @NotNull(message = "orderProductPrice : Null 일 수 없습니다!")
+    private Integer orderProductPrice;
+
     @NotNull(message = "orderQuantity : Null 일 수 없습니다!")
     private Integer orderQuantity;
 

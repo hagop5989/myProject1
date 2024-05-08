@@ -57,16 +57,24 @@ a{
                 <div>
                     <form:textarea path="content" cols="80" rows="10" value="${board.content}"/>
                 </div>
-    <input type="submit" value="수정"/>
-    </form:form>
+    <div class="updateWrap1" style="display: flex;">
+        <div>
+            <input type="submit" value="수정"/>
+        </div>
+        </form:form>
 
-    <form:form action="/board/delete" method="post" modelAttribute="board"
-               onsubmit="return confirm('삭제하시겠습니까?')">
-        <div><input type="hidden" name="boardId" value="${board.boardId}"></div>
-        <div><input type="submit" value="삭제"></div>
-    </form:form>
+        <div>
+            <form:form action="/board/delete" method="post" modelAttribute="board"
+                       onsubmit="return confirm('삭제하시겠습니까?')">
+                <div><input type="hidden" name="boardId" value="${board.boardId}"></div>
+                <div><input type="submit" value="삭제"></div>
+            </form:form>
+        </div>
 
-    <div><a href="/board/boards">이전</a></div>
+        <div>
+            <button><a href="/board/boards">이전</a></button>
+        </div>
+    </div>
 </div>
 
 

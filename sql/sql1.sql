@@ -29,7 +29,7 @@ CREATE TABLE board (
 );
 
 INSERT INTO board ( title, content, writer)
-VALUES ('3 번째 글', ' 글 내용 ', 'test2');
+VALUES ('5 번째 글', ' 글 내용 ', 'test2');
 
 
 
@@ -46,4 +46,45 @@ UPDATE board SET
 WHERE board_Id = 1;
 
 SELECT * FROM member;
+
+
+SELECT * FROM board
+          LIMIT 10;
+
+DESC orders;
+
+
+DROP TABLE orders;
+    CREATE TABLE orders (
+    orderId INT PRIMARY KEY AUTO_INCREMENT,
+    orderItem VARCHAR(20) NOT NULL ,
+    orderProductPrice INT NOT NULL,
+    orderQuantity INT NOT NULL ,
+    orderTotalPrice INT NOT NULL,
+    orderCustomerName VARCHAR(20) REFERENCES member(userId)
+    );
+
+INSERT INTO orders (
+                    orderItem,orderProductPrice,orderQuantity,orderTotalPrice,orderCustomerName
+)
+VALUES (
+        '아이템3',1000,10,10000,'기본값'
+       );
+
+UPDATE item
+SET
+    itemName = 'item0',
+        itemPrice = 2000
+WHERE itemId = 1;
+
+SELECT * FROM item;
+
+SELECT i.itemPrice FROM orders o JOIN item i ON o.orderItem = i.itemName;
+
+
+ALTER TABLE item MODIFY COLUMN itemId INT AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE item MODIFY COLUMN itemName VARCHAR(20) NOT NULL UNIQUE ;
+ALTER TABLE item MODIFY COLUMN itemPrice INT NOT NULL ;
+
+DELETE FROM item WHERE itemId = '';
 

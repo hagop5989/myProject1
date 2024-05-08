@@ -66,8 +66,8 @@ public class MemberController {
         List<Member> memberList = mapper.findAllMembers();
         model.addAttribute("members", memberList);
         model.addAttribute("member",selected);
-        System.out.println("memberList = " + memberList);
-        System.out.println("selected = " + selected);
+//        System.out.println("memberList = " + memberList);
+//        System.out.println("selected = " + selected);
 //        memberList.stream().forEach(System.out::println);
         return "member/members";
     }

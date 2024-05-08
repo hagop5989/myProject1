@@ -24,15 +24,13 @@ public class SignInController {
                          BindingResult bindingResult, Model model) {
             model.addAttribute("member", newMember);
         if(bindingResult.hasErrors()) {
-            System.out.println("가입 오류 발생");
 //            rttr.addFlashAttribute(bindingResult);
 //            return "redirect:/login";
             return "login/loginForm";
         }
-        System.out.println("newMember = " + newMember);
+//        System.out.println("newMember = " + newMember);
         int rowCount = mapper.insertMemberToDb(newMember);
 //        signInForm.memberCreate(user_id,password);
-        System.out.println("생성된 Id 개수 = " + rowCount);
         return "redirect:/login";
     }
 }

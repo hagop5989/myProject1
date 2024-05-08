@@ -25,20 +25,11 @@ public class BoardController {
 
     @PostMapping("/insert")
     public String insertBoard(Board board, BoardInsertDto dto, Model model) {
-        System.out.println("board = " + board);
-        System.out.println("dto = " + dto);
-
         mapper.insertBoard(dto);
         return "redirect:/board/boards";
     }
 
-    @GetMapping("/boards")
-    public String boards(Board board,Model model) {
-        List<Board> boardList = mapper.findAll();
-        model.addAttribute("boards", boardList);
-        model.addAttribute("board", board);
-        return "board/boards";
-    }
+
 
     @GetMapping("/boardDetail")
     public String boardDetail(@RequestParam("boardId") String boardId, Model model) {
@@ -60,5 +51,77 @@ public class BoardController {
         mapper.delete(boardId);
         return "redirect:/board/boards";
     }
+
+    @GetMapping("/boards")
+    public String boards(@RequestParam(defaultValue = "1") Integer page, Board board,Model model) {
+
+
+        // 페이징 시작.
+        int sizeNum = mapper.count();
+
+        // 페이지 보여주기
+        int offset = page * 10;
+
+
+        // 기본값 설정
+        int firstPg = 1;
+        int lastPg = 1;
+        int nxtPg = 1;
+        int prvPg = 1;
+
+        // page 로직
+        if (page - 4 > 0) {
+            firstPg = page - 4;
+            lastPg = page + 5;
+        } else {
+            firstPg = 1;
+            lastPg = page + 5;
+        }
+        if (lastPg > sizeNum) {
+            lastPg = sizeNum;
+            firstPg = lastPg - 10;
+        } else if (firstPg == 1) {
+            lastPg = 10;
+        }
+
+        // prvPg 로직
+        if (firstPg > 10) {
+            prvPg = firstPg - 6;
+        } else {
+            prvPg = 1;
+        }
+
+        // nxtPg 로직
+        if (firstPg >= sizeNum - 10) {
+            nxtPg = sizeNum - 5;
+        } else if (sizeNum > nxtPg) {
+            nxtPg = page + 10;
+        }
+
+//        System.out.println("firstPg = " + firstPg);
+//        System.out.println("lastPg = " + lastPg);
+//        System.out.println("prvPg = " + prvPg);
+//        System.out.println("nxtPg = " + nxtPg);
+//        System.out.println("offset = " + offset);
+//        System.out.println("nowPage = " + page);
+//        System.out.println("sizeNum = " + sizeNum);
+
+        model.addAttribute("prvPg", prvPg);
+        model.addAttribute("nxtPg", nxtPg);
+        model.addAttribute("nowPage", page);
+        model.addAttribute("sizeNum", sizeNum);
+
+        model.addAttribute("firstPg", firstPg);
+        model.addAttribute("lastPg", lastPg);
+        model.addAttribute("offset", offset);
+
+        // 리스트 보여주기
+//        List<Board> boardList = mapper.findAll();
+        List<Board> pagedBoards = mapper.pagingSelect(offset);
+        model.addAttribute("boards", pagedBoards);
+        model.addAttribute("board", board);
+        return "board/boards";
+    }
+
 
 }
